@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+
 const assetSchedulingSchema = new mongoose.Schema({
-  assetName: {
+  assetID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'AssetSpec',
     required: true
@@ -9,11 +10,19 @@ const assetSchedulingSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  activityNum: {
+    //assigned by backend not by user
+    type: Number,
+    required: true
+  },
   frequency: {
     type: String,
-    enum: ['Daily', 'Weekly', 'Biweekly', 'Monthly', 'Half Early', 'Early'],
+    enum: ['Daily', 'Weekly', 'Biweekly', 'Monthly', 'Bimonthly', 'Half Yearly', 'Yearly'],
     required: true
   }
+},
+{
+  timestamps: true
 });
 
 const AssetScheduling = mongoose.model('AssetScheduling', assetSchedulingSchema);
