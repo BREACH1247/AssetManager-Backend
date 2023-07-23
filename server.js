@@ -14,16 +14,37 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/recordCreation", async (req, res) => {
-  const record = await maintenanceRec.create(req.body)
-  console.log(record);
-  res.send(record);
+  const schedId = req.body[0];
+
+  const doc = await maintenanceRec.exists({ schedID: schedId }
+);
+
+  console.log("Result :", doc)
+  if(doc){
+    console.log("true, add into");
+    const updatedoc = await maintenanceRec.findOneAndUpdate(
+      {schedID: schedId},
+      {$push: {records: req.body[1]}})
+    console.log(updatedoc)
+  }
+  else{
+    console.log("false create one");
+    const maintrecord = {
+      schedID: schedId,
+      records: [req.body[1]]
+    }
+    const newrecord = await maintenanceRec.create(maintrecord)
+    console.log(newrecord);
+    res.send(newrecord);
+  }
+
+  // const record = await maintenanceRec.create(req.body)
+  // console.log(record);
+  // res.send(record);
 })
 
 app.post("/scheduleCreation", async (req, res) => {
-
   //assetid - 0th element in req body, assetsched data (without object id) - 1
-
-
   const objectId = req.body[0];
   const doc = await AssetSpec.findById(objectId);
   console.log(doc)
@@ -31,9 +52,6 @@ app.post("/scheduleCreation", async (req, res) => {
   const docCheck = await AssetSpec.findOneAndUpdate({
     _id: objectId
 }, { activityCount: newcount }, { upsert: true, useFindAndModify: false });
-
-  
-  // const updatecount = await doc.update({ activityCount: newcount })
   console.log(docCheck)
   const schedObj = {
     assetID: objectId,
