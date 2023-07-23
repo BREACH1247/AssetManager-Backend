@@ -14,6 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/recordCreation", async (req, res) => {
+  // req.body[0] is the schedule id, req.body[1] is the array element
   const schedId = req.body[0];
 
   const doc = await maintenanceRec.exists({ schedID: schedId }
