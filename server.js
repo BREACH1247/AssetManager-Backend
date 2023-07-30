@@ -6,7 +6,7 @@ const port = 3000;
 const maintenanceRecordRoutes = require("./Routes/maintainenceRecord");
 const assetSchedulingRoutes = require("./Routes/assetScheduling");
 const assetSpecRoutes = require("./Routes/assetSpecification");
-const getAssetRoutes = require("./Routes/getAssets")
+const getAssetRoutes = require("./Routes/getAssets.js")
 
 var uri = "mongodb://anyone:1234@ac-hceg3j7-shard-00-00.8f2jhii.mongodb.net:27017,ac-hceg3j7-shard-00-01.8f2jhii.mongodb.net:27017,ac-hceg3j7-shard-00-02.8f2jhii.mongodb.net:27017/?ssl=true&replicaSet=atlas-10esad-shard-0&authSource=admin&retryWrites=true&w=majority";
 mongoose.set("strictQuery", false);
@@ -27,4 +27,4 @@ mongoose.connect(uri).then(()=>{
 app.use("/recordCreation", maintenanceRecordRoutes);
 app.use("/scheduleCreation", assetSchedulingRoutes);
 app.use("/assetCreation", assetSpecRoutes);
-app.use("/getAssets", getAssetRoutes);
+app.use("/getAsset", getAssetRoutes);
