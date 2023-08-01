@@ -27,7 +27,14 @@ mongoose.connect(uri).then(()=>{
 app.post("/recordCreation", maintenanceRecordRoutes);
 app.post("/scheduleCreation", assetSchedulingRoutes);
 app.post("/assetCreation", assetSpecRoutes);
+app.post("/deleteAsset", assetSpecRoutes);
+app.post("/updateAsset", assetSpecRoutes);
 app.get("/getAsset", getAssetRoutes);
+app.get("/getSchedList", assetSchedulingRoutes);
+app.post("/deleteActivity", assetSchedulingRoutes);
+app.post("/updateActivity", assetSchedulingRoutes);
+app.get("/getMaintList", maintenanceRecordRoutes);
+
 app.get("/", (req, res) => {
   res.send("Welcome to the maintenance and asset management API!");
 });
