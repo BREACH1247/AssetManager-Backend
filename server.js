@@ -7,7 +7,8 @@ const maintenanceRecordRoutes = require("./Routes/maintainenceRecord");
 const assetSchedulingRoutes = require("./Routes/assetScheduling");
 const assetSpecRoutes = require("./Routes/assetSpecification");
 const getAssetRoutes = require("./Routes/getAssets")
-
+const authroutes = require("./Routes/user")
+const jwtauth = require("./Controllers/JwtAuth")
 var uri = "mongodb://anyone:1234@ac-hceg3j7-shard-00-00.8f2jhii.mongodb.net:27017,ac-hceg3j7-shard-00-01.8f2jhii.mongodb.net:27017,ac-hceg3j7-shard-00-02.8f2jhii.mongodb.net:27017/?ssl=true&replicaSet=atlas-10esad-shard-0&authSource=admin&retryWrites=true&w=majority";
 mongoose.set("strictQuery", false);
 
@@ -24,16 +25,18 @@ mongoose.connect(uri).then(()=>{
 
 //Routes
 // Register routes
-app.post("/recordCreation", maintenanceRecordRoutes);
-app.post("/scheduleCreation", assetSchedulingRoutes);
-app.post("/assetCreation", assetSpecRoutes);
-app.post("/deleteAsset", assetSpecRoutes);
-app.post("/updateAsset", assetSpecRoutes);
-app.get("/getAsset", getAssetRoutes);
-app.get("/getSchedList", assetSchedulingRoutes);
-app.post("/deleteActivity", assetSchedulingRoutes);
-app.post("/updateActivity", assetSchedulingRoutes);
-app.get("/getMaintList", maintenanceRecordRoutes);
+app.post("/signup",authroutes)
+app.post("/login",authroutes)
+app.post("/recordCreation",jwtauth,maintenanceRecordRoutes);
+app.post("/scheduleCreation",jwtauth, assetSchedulingRoutes);
+app.post("/assetCreation",jwtauth, assetSpecRoutes);
+app.post("/deleteAsset",jwtauth,assetSpecRoutes);
+app.post("/updateAsset",jwtauth, assetSpecRoutes);
+app.get("/getAsset",jwtauth, getAssetRoutes);
+app.get("/getSchedList",jwtauth, assetSchedulingRoutes);
+app.post("/deleteActivity",jwtauth, assetSchedulingRoutes);
+app.post("/updateActivity",jwtauth, assetSchedulingRoutes);
+app.get("/getMaintList",jwtauth, maintenanceRecordRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the maintenance and asset management API!");
