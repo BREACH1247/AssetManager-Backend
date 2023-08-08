@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
-
+const cors = require('cors');
 const maintenanceRecordRoutes = require("./Routes/maintainenceRecord");
 const assetSchedulingRoutes = require("./Routes/assetScheduling");
 const assetSpecRoutes = require("./Routes/assetSpecification");
@@ -14,6 +14,11 @@ mongoose.set("strictQuery", false);
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
 
 mongoose.connect(uri).then(()=>{
   app.listen(port, ()=>{
