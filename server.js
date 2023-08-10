@@ -37,11 +37,11 @@ app.post("/scheduleCreation",jwtauth, assetSchedulingRoutes);
 app.post("/assetCreation",jwtauth, assetSpecRoutes);
 app.post("/deleteAsset",jwtauth,assetSpecRoutes);
 app.post("/updateAsset",jwtauth, assetSpecRoutes);
-app.get("/getAsset",jwtauth, getAssetRoutes);
-app.get("/getSchedList",jwtauth, assetSchedulingRoutes);
+app.post("/getAsset",jwtauth, getAssetRoutes);
+app.post("/getSchedList",jwtauth, assetSchedulingRoutes);
 app.post("/deleteActivity",jwtauth, assetSchedulingRoutes);
 app.post("/updateActivity",jwtauth, assetSchedulingRoutes);
-app.get("/getMaintList",jwtauth, maintenanceRecordRoutes);
+app.post("/getMaintList",jwtauth, maintenanceRecordRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the maintenance and asset management API!");

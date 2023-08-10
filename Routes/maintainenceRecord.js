@@ -3,7 +3,7 @@ const router = express.Router();
 const maintenanceRecordController = require("../Controllers/MaintainenceRecord");
 
 router.post("/recordCreation", maintenanceRecordController.createRecord);
-router.get("/getMaintList", maintenanceRecordController.getMaintList);
+router.post("/getMaintList", maintenanceRecordController.getMaintList);
 
 
 module.exports = router;
